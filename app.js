@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     state.activeTab = tabName;
     if (tabName === 'maker') {
       // Toggle button active states
-      tabMakerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 bg-orange-600 text-white shadow-md';
+      tabMakerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-md';
       tabCustomerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 text-slate-500 hover:text-slate-900';
       
       // Update Hero Content
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
     } else {
       // Toggle button active states
-      tabCustomerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 bg-orange-600 text-white shadow-md';
+      tabCustomerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-md';
       tabMakerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 text-slate-500 hover:text-slate-900';
       
       // Update Hero Content
@@ -171,10 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
     simulatorList.innerHTML = '';
     completedJobs.forEach((job) => {
       const jobEl = document.createElement('div');
-      jobEl.className = 'flex items-center justify-between p-3.5 rounded-lg border border-slate-100 bg-white hover:border-orange-500/20 hover:shadow-sm transition-all duration-300';
+      jobEl.className = 'flex items-center justify-between p-3.5 rounded-lg border border-slate-100 bg-white hover:border-indigo-500/20 hover:shadow-sm transition-all duration-300';
       jobEl.innerHTML = `
         <div class="flex items-center space-x-3">
-          <span class="flex h-2.5 w-2.5 rounded-full bg-orange-500"></span>
+          <span class="flex h-2.5 w-2.5 rounded-full bg-indigo-500"></span>
           <div>
             <div class="flex items-center space-x-2">
               <span class="text-xs font-bold text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded uppercase tracking-wider">${job.city}</span>
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
         <div class="text-right">
-          <span class="text-xs font-bold text-orange-600 bg-orange-50 border border-orange-200/50 px-2 py-0.5 rounded-full">${job.amount}</span>
+          <span class="text-xs font-bold text-indigo-600 bg-indigo-50 border border-indigo-200/50 px-2 py-0.5 rounded-full">${job.amount}</span>
         </div>
       `;
       simulatorList.appendChild(jobEl);
@@ -230,14 +230,14 @@ document.addEventListener('DOMContentLoaded', () => {
   ['dragenter', 'dragover'].forEach(eventName => {
     dropZone.addEventListener(eventName, (e) => {
       e.preventDefault();
-      dropZone.classList.add('border-orange-500', 'bg-orange-50/20');
+      dropZone.classList.add('border-indigo-500', 'bg-indigo-50/20');
     }, false);
   });
 
   ['dragleave', 'drop'].forEach(eventName => {
     dropZone.addEventListener(eventName, (e) => {
       e.preventDefault();
-      dropZone.classList.remove('border-orange-500', 'bg-orange-50/20');
+      dropZone.classList.remove('border-indigo-500', 'bg-indigo-50/20');
     }, false);
   });
 
