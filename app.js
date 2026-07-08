@@ -19,17 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Realistic side-hustle rates (representing actual wear & tear + margins)
   const printerRates = {
-    'ender3': { name: 'Creality Ender 3 (Standart)', rate: 20 },
-    'k1': { name: 'Creality K1 (Hızlı)', rate: 40 },
-    'bambu-p1s': { name: 'Bambu Lab P1S (Yüksek Hız)', rate: 50 },
-    'bambu-x1c': { name: 'Bambu Lab X1-Carbon (Premium)', rate: 58 },
-    'voron': { name: 'Voron 2.4 (Özel Montaj)', rate: 65 }
+    'ender3': { name: 'Creality Ender 3 (Standart)', rate: 35 },
+    'k1': { name: 'Creality K1 (Hızlı)', rate: 55 },
+    'bambu-p1s': { name: 'Bambu Lab P1S (Yüksek Hız)', rate: 68 },
+    'bambu-x1c': { name: 'Bambu Lab X1-Carbon (Premium)', rate: 78 },
+    'voron': { name: 'Voron 2.4 (Özel Montaj)', rate: 85 }
   };
 
   const materialRates = {
-    'pla': { name: 'PLA (Standart)', rate: 1.5 },
-    'petg': { name: 'PETG (Fonksiyonel)', rate: 2.0 },
-    'abs': { name: 'ABS/ASA (Endüstriyel)', rate: 2.5 }
+    'pla': { name: 'PLA (Standart)', rate: 2.8 },
+    'petg': { name: 'PETG (Fonksiyonel)', rate: 3.8 },
+    'abs': { name: 'ABS/ASA (Endüstriyel)', rate: 4.8 }
   };
 
   // Dispatched Jobs History Database (Static Showcase)
@@ -131,8 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const hours = parseInt(calcHours.value);
     
     const rate = printerRates[printerKey].rate;
-    // Grounded Calculation: hours * baseRate * 30 days * 25% occupancy rate (realistic load)
-    const occupancyRate = 0.25;
+    // Grounded Calculation: hours * baseRate * 30 days * 30% occupancy rate (realistic load)
+    const occupancyRate = 0.30;
     const monthlyEarnings = Math.round(hours * rate * 30 * occupancyRate);
     const weeklyEarnings = Math.round(monthlyEarnings / 4.33);
     
@@ -191,16 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Periodic fluctuation of active maker count for immersion
-  function fluctuateMakers() {
-    const delta = Math.floor(Math.random() * 3) - 1;
-    const current = parseInt(activePrintersCount.textContent) || 86;
-    activePrintersCount.textContent = Math.max(80, current + delta);
-  }
-
   // Initial render
   renderCompletedJobs();
-  setInterval(fluctuateMakers, 6000);
 
   // --- INTERACTIVE QUOTE ESTIMATOR LOGIC ---
   function calculateQuote() {
@@ -208,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const materialKey = materialSelect.value;
     
     const materialRate = materialRates[materialKey].rate;
-    const baseFee = 20; // Setup, machine prep, and dispatch fee
+    const baseFee = 60; // Setup, machine prep, and dispatch fee
     const rawCost = baseFee + (grams * materialRate);
     
     const estimatedCost = Math.round(rawCost);
