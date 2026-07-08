@@ -137,15 +137,16 @@
       </div>
 
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
-        <div class="relative w-full aspect-[2/1] min-h-[300px] flex items-center justify-center bg-slate-50 rounded-xl border border-slate-100 overflow-hidden">
-          <svg class="w-full h-full text-slate-200/70" viewBox="0 0 1000 500" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M150,150 Q170,120 220,130 T280,180 T300,240 T240,300 T180,280 Z" fill="#e2e8f0"/> <!-- North America -->
-            <path d="M220,320 Q240,360 260,420 T280,480 Q250,490 230,460 T200,380 Z" fill="#e2e8f0"/> <!-- South America -->
-            <path d="M420,140 Q460,90 520,110 T580,130 T600,180 T540,220 T460,190 Z" fill="#e2e8f0"/> <!-- Europe -->
-            <path d="M440,240 Q490,260 520,310 T540,380 T500,430 T420,380 T410,290 Z" fill="#e2e8f0"/> <!-- Africa -->
-            <path d="M580,120 Q660,80 780,110 T840,180 T860,260 T740,310 T620,240 Z" fill="#e2e8f0"/> <!-- Asia -->
-            <path d="M780,340 Q840,360 860,400 T800,440 T740,410 Z" fill="#e2e8f0"/> <!-- Australia -->
-            <path d="M490,160 Q500,155 510,160 T510,170 T495,168 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.2"/> <!-- Zoom Highlight: Turkey -->
+        <div class="relative w-full aspect-[2/1] min-h-[300px] bg-slate-50 rounded-xl border border-slate-100 overflow-hidden">
+          <!-- High-Contrast SVG World Map -->
+          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+            <path d="M150,150 Q170,120 220,130 T280,180 T300,240 T240,300 T180,280 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.7"/> <!-- North America -->
+            <path d="M220,320 Q240,360 260,420 T280,480 Q250,490 230,460 T200,380 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.7"/> <!-- South America -->
+            <path d="M420,140 Q460,90 520,110 T580,130 T600,180 T540,220 T460,190 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.7"/> <!-- Europe -->
+            <path d="M440,240 Q490,260 520,310 T540,380 T500,430 T420,380 T410,290 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.7"/> <!-- Africa -->
+            <path d="M580,120 Q660,80 780,110 T840,180 T860,260 T740,310 T620,240 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.7"/> <!-- Asia -->
+            <path d="M780,340 Q840,360 860,400 T800,440 T740,410 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.7"/> <!-- Australia -->
+            <path d="M490,160 Q500,155 510,160 T510,170 T495,168 Z" fill="#ea580c" stroke="#ea580c" stroke-width="1.5"/> <!-- Zoom Highlight: Turkey -->
 
             <!-- Pulsing Pins -->
             <circle cx="502" cy="165" r="4.5" fill="#ea580c"/>
