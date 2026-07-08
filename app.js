@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Dispatched Jobs History Database (Static Showcase)
   const completedJobs = [
-    { city: 'İstanbul', job: 'Drone Motor Bağlantı Aparatı', status: 'Ödendi', amount: '120 TL', time: 'Bugün' },
-    { city: 'Ankara', job: 'Mimari Ölçekli Kolon (2 Adet)', status: 'Ödendi', amount: '340 TL', time: 'Dün' },
-    { city: 'İzmir', job: 'Tıbbi Cihaz Prototip Kabuğu', status: 'Ödendi', amount: '260 TL', time: '2 gün önce' },
-    { city: 'Bursa', job: 'Otomotiv Torpido Dişli Seti', status: 'Ödendi', amount: '190 TL', time: '3 gün önce' }
+    { city: 'İstanbul', job: 'Drone Motor Bağlantı Aparatı', status: 'Ödendi', amount: '480 TL', time: 'Bugün' },
+    { city: 'Ankara', job: 'Mimari Ölçekli Kolon (2 Adet)', status: 'Ödendi', amount: '1,250 TL', time: 'Dün' },
+    { city: 'İzmir', job: 'Tıbbi Cihaz Prototip Kabuğu', status: 'Ödendi', amount: '860 TL', time: '2 gün önce' },
+    { city: 'Bursa', job: 'Otomotiv Torpido Dişli Seti', status: 'Ödendi', amount: '620 TL', time: '3 gün önce' }
   ];
 
   // --- ELEMENT SELECTORS ---
