@@ -131,8 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const hours = parseInt(calcHours.value);
     
     const rate = printerRates[printerKey].rate;
-    // Grounded Calculation: hours * baseRate * 30 days * 45% occupancy rate (realistic load)
-    const occupancyRate = 0.45;
+    // Grounded Calculation: hours * baseRate * 30 days * 25% occupancy rate (realistic load)
+    const occupancyRate = 0.25;
     const monthlyEarnings = Math.round(hours * rate * 30 * occupancyRate);
     const weeklyEarnings = Math.round(monthlyEarnings / 4.33);
     
@@ -194,8 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Periodic fluctuation of active maker count for immersion
   function fluctuateMakers() {
     const delta = Math.floor(Math.random() * 3) - 1;
-    const current = parseInt(activePrintersCount.textContent) || 312;
-    activePrintersCount.textContent = Math.max(300, current + delta);
+    const current = parseInt(activePrintersCount.textContent) || 86;
+    activePrintersCount.textContent = Math.max(80, current + delta);
   }
 
   // Initial render
