@@ -80,23 +80,13 @@
             Boşta duran yazıcını topluluk işleri için üretime aç. Cihazını doğrula, e-posta ile iletilen STL dosyalarını basıp ek gelir kazan.
           </p>
 
-          <!-- Dual Intent Toggle Buttons -->
-          <div class="p-1.5 bg-[#f1f5f9] border border-slate-200 rounded-xl inline-flex w-full sm:w-auto shadow-sm">
-            <button id="tab-maker-btn" class="flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-md">
-              3D Yazıcı Sahibiyim (Gelir Kazan)
-            </button>
-            <button id="tab-customer-btn" class="flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 text-slate-500 hover:text-slate-900">
-              Baskı Almak İstiyorum (Müşteri)
-            </button>
-          </div>
-
           <!-- CTA Controls -->
-          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
             <a id="hero-cta-main" href="#calculator-section" class="btn-neon w-full sm:w-auto text-center px-8 py-4 rounded-xl font-bold transition-all duration-300">
-              Yazıcını Ağa Kaydet
+              Gelirini Hesapla
             </a>
-            <a id="hero-cta-sec" href="#trust-section" class="w-full sm:w-auto text-center px-8 py-4 rounded-xl font-semibold btn-secondary">
-              Katılım Koşulları
+            <a id="hero-cta-sec" href="#how-it-works" class="w-full sm:w-auto text-center px-8 py-4 rounded-xl font-semibold btn-secondary">
+              Süreç Nasıl Çalışır?
             </a>
           </div>
         </div>
@@ -377,184 +367,7 @@
     </div>
   </div>
 
-  <!-- ================= CUSTOMER FLOW ================= -->
-  <div id="flow-customer" class="tab-content hidden-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-    
-    <!-- Quotation Estimator Section -->
-    <div id="estimator-section" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-8 pb-16">
-      
-      <!-- Upload Box -->
-      <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 flex flex-col justify-between shadow-sm">
-        <div>
-          <div class="flex items-center space-x-2 text-indigo-600 mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload-cloud"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path><path d="M12 12v9"></path><path d="m15 15-3-3-3 3"></path></svg>
-            <span class="text-xs font-bold uppercase tracking-widest font-display">ANINDA MALİYET TAHMİNİ</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 tracking-tight">Tasarımını Yükle, Fiyatını Gör</h2>
-          <p class="text-sm text-slate-500 mt-2 leading-relaxed">STL, OBJ veya 3MF dosyalarınızı sürükleyip bırakarak kolektifimizin anlık tahmini üretim maliyetini görebilirsiniz.</p>
 
-          <!-- Upload Drop Zone -->
-          <div id="drop-zone" class="mt-8 border-2 border-dashed border-slate-300 hover:border-indigo-500/40 hover:bg-indigo-50/10 rounded-2xl p-10 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group">
-            <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl group-hover:scale-110 group-hover:border-indigo-500/20 transition-all duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code-2"><path d="M4 22V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2H4z"></path><path d="M14 2v6h6"></path><path d="m8 18 2-2-2-2"></path><path d="m12 14 2 2-2 2"></path></svg>
-            </div>
-            <p class="text-sm text-slate-700 font-semibold mt-4">Dosyayı buraya sürükleyin veya dosya seçin</p>
-            <p class="text-xs text-slate-400 mt-2">Desteklenen formatlar: STL, OBJ, 3MF (Maks 50MB)</p>
-            <input type="file" id="upload-input" class="hidden" accept=".stl,.obj,.3mf">
-          </div>
-
-          <!-- Mock Upload Progress -->
-          <div id="upload-progress" class="hidden mt-8 border border-slate-200 bg-slate-50 rounded-2xl p-10 flex flex-col items-center justify-center">
-            <svg class="animate-spin h-8 w-8 text-indigo-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <p class="text-sm font-semibold text-slate-700">Model Analiz Ediliyor...</p>
-            <p class="text-xs text-slate-400 mt-1">Hacim ve filament gereksinimi hesaplanıyor.</p>
-            <div class="w-full bg-slate-200 max-w-xs h-1.5 rounded-full mt-4 overflow-hidden">
-              <div id="progress-bar" class="bg-indigo-600 h-full w-0 transition-all duration-100"></div>
-            </div>
-          </div>
-
-          <!-- Mock Loaded Details -->
-          <div id="file-details" class="hidden mt-6 p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 bg-indigo-600/10 rounded-lg text-indigo-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-check-2"><path d="M4 22V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2H4z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg>
-              </div>
-              <div>
-                <p id="file-name-display" class="text-sm font-semibold text-slate-800">model.stl</p>
-                <p id="file-weight-display" class="text-xs text-slate-500 mt-0.5">-- gr</p>
-              </div>
-            </div>
-            <button id="reset-upload" class="text-xs text-red-500 hover:text-red-400 font-semibold transition-colors duration-150">Dosyayı Değiştir</button>
-          </div>
-
-          <!-- Estimator Inputs -->
-          <div id="estimator-controls" class="hidden mt-8 space-y-6">
-            <!-- Manual Weight Adjustment Slider -->
-            <div class="space-y-3">
-              <div class="flex justify-between items-center">
-                <label for="weight-slider" class="text-xs font-bold text-slate-700 uppercase tracking-wider">Model Ağırlığı (Doluluk Dahil)</label>
-                <span class="text-sm font-bold text-indigo-600 font-mono bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200/50"><span id="weight-val">75</span> gram</span>
-              </div>
-              <input type="range" id="weight-slider" min="5" max="1000" step="5" value="75" class="w-full cursor-pointer">
-              <div class="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">
-                <span>5 gr</span>
-                <span>500 gr</span>
-                <span>1000 gr</span>
-              </div>
-            </div>
-
-            <!-- Material Select -->
-            <div class="space-y-2">
-              <label for="material-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Malzeme Türü</label>
-              <div class="relative">
-                <select id="material-select" class="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-semibold text-slate-800 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 appearance-none transition-colors duration-200">
-                  <option value="pla">PLA (Standart & Dekoratif)</option>
-                  <option value="petg">PETG (Dayanıklı & Mekanik)</option>
-                  <option value="abs">ABS / ASA (Yüksek Mukavemet)</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-8 pt-6 border-t border-slate-200/60">
-          <p class="text-xs text-slate-400 leading-relaxed">*Bu, filament maliyetleri ve makine kullanım sürelerini esas alan tahmini bir değerdir. Kesin fiyatlandırma, model geometrisi incelendikten sonra el ile belirlenir.</p>
-        </div>
-      </div>
-
-      <!-- Estimator Result Card -->
-      <div class="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 rounded-2xl border border-slate-200 bg-white shadow-sm relative overflow-hidden indigo-glow-box">
-        <div class="absolute inset-0 dots-grid opacity-30 pointer-events-none"></div>
-
-        <div class="relative z-10">
-          <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-full uppercase tracking-wider inline-block">TAHMİNİ MAALİYET</span>
-          
-          <div class="mt-8">
-            <p class="text-xs font-medium text-slate-500">Baskı Hazırlık & Üretim Maliyeti</p>
-            <h3 id="estimator-cost" class="text-4xl sm:text-5xl font-black font-display text-slate-900 tracking-tight mt-2">
-              133 TL
-            </h3>
-            <div class="mt-4 flex items-center space-x-2 text-xs text-slate-500 bg-slate-50 border border-slate-200/60 p-3 rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span>Ortalama Üretim Süresi: <strong id="estimator-time" class="text-slate-800">~ 6 saat 30 dakika</strong></span>
-            </div>
-          </div>
-
-          <div class="mt-6 space-y-3.5">
-            <div class="flex items-center space-x-2.5 text-xs text-slate-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Size en yakın lokasyondaki sertifikalı yerel üretici eşleşmesi.</span>
-            </div>
-            <div class="flex items-center space-x-2.5 text-xs text-slate-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Kolektif içi kalite standartları ve boyutsal denetim.</span>
-            </div>
-            <div class="flex items-center space-x-2.5 text-xs text-slate-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Baskı hatalarında ücretsiz yeniden basım garantisi.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="relative z-10 mt-8">
-          <button class="w-full btn-neon py-4 rounded-xl text-sm font-bold shadow-lg transition-all duration-300">
-            Siparişi Oluştur
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quality Assurance Section -->
-    <div id="quality-section" class="py-12 border-t border-slate-200/60">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <h2 class="text-3xl font-bold font-display text-slate-900 tracking-tight">Kolektif Kalite Güvencesi</h2>
-        <p class="text-slate-600 mt-3 text-sm sm:text-base leading-relaxed">
-          Produstra platformundaki her baskı, topluluğun ortak kalite kriterlerine tabidir.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- QA Card 1 -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-indigo-500/10 hover:shadow-sm transition-all duration-300">
-          <div class="p-3 bg-indigo-600/10 rounded-xl border border-indigo-500/20 text-indigo-600 w-12 h-12 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
-          </div>
-          <h3 class="text-lg font-bold font-display text-slate-900 mt-5">Sertifikalı Üreticiler</h3>
-          <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
-            Kolektif üyesi tüm yazıcılar, kumpas doğrulaması ve tolerans mastarı testlerini başarıyla tamamlamıştır. Ölçü sapmaları asgariye indirgenmiştir.
-          </p>
-        </div>
-
-        <!-- QA Card 2 -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-indigo-500/10 hover:shadow-sm transition-all duration-300">
-          <div class="p-3 bg-indigo-600/10 rounded-xl border border-indigo-500/20 text-indigo-600 w-12 h-12 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-alert"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-          </div>
-          <h3 class="text-lg font-bold font-display text-slate-900 mt-5">Boyutsal Denetim</h3>
-          <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
-            Basılan parçalar, kargo gönderiminden önce üretici tarafından dijital kumpasla ölçülür. Teknik spesifikasyonlara uymayan baskılar kargolanmaz.
-          </p>
-        </div>
-
-        <!-- QA Card 3 -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-indigo-500/10 hover:shadow-sm transition-all duration-300">
-          <div class="p-3 bg-indigo-600/10 rounded-xl border border-indigo-500/20 text-indigo-600 w-12 h-12 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 16h5v5"></path></svg>
-          </div>
-          <h3 class="text-lg font-bold font-display text-slate-900 mt-5">Yeniden Basım Garantisi</h3>
-          <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
-            Herhangi bir üretim veya kargo hasarı kusuru durumunda, parça topluluğun başka bir üyesi tarafından en öncelikli sırada yeniden basılır.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ================= DUAL HOW IT WORKS TIMELINE ================= -->
   <section id="how-it-works" class="py-20 bg-white border-t border-b border-slate-200/60">
@@ -565,98 +378,41 @@
         <p class="text-slate-500 mt-3 text-sm sm:text-base">Kolektif üretim sürecinin el ile yönetilen yalın ve şeffaf yapısı.</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-        
-        <!-- Maker Timeline (Yazıcı Sahipleri) -->
-        <div class="space-y-12">
-          <div class="flex items-center space-x-3 pb-4 border-b border-slate-200/60">
-            <div class="p-2 bg-indigo-600/10 rounded-lg text-indigo-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2"><circle cx="4" cy="5" r="2"></circle><circle cx="12" cy="19" r="2"></circle><circle cx="20" cy="12" r="2"></circle><line x1="2" x2="22" y1="12" y2="12"></line><line x1="2" x2="10" y1="19" y2="19"></line><line x1="14" x2="22" y1="19" y2="19"></line><line x1="2" x2="16" y1="5" y2="5"></line><line x1="20" x2="22" y1="5" y2="5"></line></svg>
+      <div class="max-w-3xl mx-auto">
+        <div class="relative pl-8 border-l border-slate-200 space-y-12">
+          <!-- Step 1 -->
+          <div class="relative">
+            <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
+              <span class="text-[10px] font-bold text-indigo-600 font-mono">1</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-display">Üreticiler İçin</h3>
+            <h4 class="text-lg font-bold text-slate-900 font-display">Kayıt Ol ve Kalibrasyon Yap</h4>
+            <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+              Yazıcı modelinizi belirtip kaydınızı yapın. 2.000 TL akreditasyon bedelini tamamladıktan sonra kalibrasyon test modelinin STL dosyasını basarak ölçülerini kumpas doğrulaması için topluluk yönetimine iletin.
+            </p>
           </div>
 
-          <div class="relative pl-8 border-l border-slate-200 space-y-10">
-            <!-- Step 1 -->
-            <div class="relative">
-              <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
-                <span class="text-[10px] font-bold text-indigo-600 font-mono">1</span>
-              </div>
-              <h4 class="text-base font-bold text-slate-900 font-display">Kayıt Ol ve Kalibrasyon Yap</h4>
-              <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                Yazıcı modelini belirtip kaydını yap. 2.000 TL akreditasyon bedelini ödedikten sonra panelden kalibrasyon test modelinin STL dosyasını indir, bas ve ölçülerini onay için sisteme yükle.
-              </p>
+          <!-- Step 2 -->
+          <div class="relative">
+            <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
+              <span class="text-[10px] font-bold text-indigo-600 font-mono">2</span>
             </div>
+            <h4 class="text-lg font-bold text-slate-900 font-display">STL Dosyasını E-Posta / Mesaj ile Al</h4>
+            <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+              Bölgenizden bir baskı talebi geldiğinde, koordinasyon ekibimiz doğrudan e-posta veya Telegram üzerinden sizinle iletişime geçer. Basılacak parçanın STL dosyasını ve filament rengini sizinle paylaşır.
+            </p>
+          </div>
 
-            <!-- Step 2 -->
-            <div class="relative">
-              <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
-                <span class="text-[10px] font-bold text-indigo-600 font-mono">2</span>
-              </div>
-              <h4 class="text-base font-bold text-slate-900 font-display">STL Dosyasını E-Posta / Mesaj ile Al</h4>
-              <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                Bölgenden sipariş geldiğinde koordinasyon ekibimiz doğrudan e-posta veya Telegram üzerinden sizinle iletişime geçer, basılacak parçanın STL dosyasını ve filament rengini paylaşır.
-              </p>
+          <!-- Step 3 -->
+          <div class="relative">
+            <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
+              <span class="text-[10px] font-bold text-indigo-600 font-mono">3</span>
             </div>
-
-            <!-- Step 3 -->
-            <div class="relative">
-              <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
-                <span class="text-[10px] font-bold text-indigo-600 font-mono">3</span>
-              </div>
-              <h4 class="text-base font-bold text-slate-900 font-display">Bas, Kargola ve Ödeme Al</h4>
-              <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                Tasarımı bas, kumpasla ölçülerini kontrol et ve anlaşmalı kargo kodu ile gönder. Müşteri teslimat onayının ardından, hak edişiniz her hafta cuma günü IBAN hesabınıza yatırılır.
-              </p>
-            </div>
+            <h4 class="text-lg font-bold text-slate-900 font-display">Üret, Kargola ve Cuma Günü Ödeme Al</h4>
+            <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+              Parçayı basıp boyutsal kontrolünü yapın, ardından size iletilen anlaşmalı kargo kodu ile gönderin. Alıcı teslimat onayının ardından, hak edişiniz her hafta cuma günü doğrudan IBAN banka hesabınıza yatırılır.
+            </p>
           </div>
         </div>
-
-        <!-- Customer Timeline (Müşteriler) -->
-        <div class="space-y-12">
-          <div class="flex items-center space-x-3 pb-4 border-b border-slate-200/60">
-            <div class="p-2 bg-indigo-600/10 rounded-lg text-indigo-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" x2="21" y1="6" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 font-display">Müşteriler İçin</h3>
-          </div>
-
-          <div class="relative pl-8 border-l border-slate-200 space-y-10">
-            <!-- Step 1 -->
-            <div class="relative">
-              <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
-                <span class="text-[10px] font-bold text-indigo-600 font-mono">1</span>
-              </div>
-              <h4 class="text-base font-bold text-slate-900 font-display">Modelini Yükle ve Fiyat Gör</h4>
-              <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                3D modelinizi tarayıcıya bırakıp malzeme seçerek tahmini üretim maliyetini görün. Talebinizi oluşturduktan sonra ekibimiz dosya geometrisini el ile son kez inceler.
-              </p>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="relative">
-              <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
-                <span class="text-[10px] font-bold text-indigo-600 font-mono">2</span>
-              </div>
-              <h4 class="text-base font-bold text-slate-900 font-display">Yerel Üretici Elden veya Kargo ile Bassın</h4>
-              <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                Tasarım, mesafesi en kısa olan ve kumpas doğrulamasına sahip lokal üreticimize iletilir. Üretici baskıyı tamamlayıp topluluk standartlarında temizler ve paketler.
-              </p>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="relative">
-              <div class="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#f8fafc] border-2 border-indigo-500 flex items-center justify-center timeline-dot">
-                <span class="text-[10px] font-bold text-indigo-600 font-mono">3</span>
-              </div>
-              <h4 class="text-base font-bold text-slate-900 font-display">Hızlıca Teslim Al</h4>
-              <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                Kargo firmaları veya kurye aracılığıyla doğrudan adresine teslim edilir. Baskıda ölçüsel veya görsel hata olması durumunda koşulsuz olarak ücretsiz tekrar basım yapılır.
-              </p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>

@@ -1,19 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   // --- STATE & DATA ---
   const state = {
-    activeTab: 'maker', // 'maker' or 'customer'
-    // Calculator State
     calculator: {
       model: 'bambu-p1s',
       hours: 4
-    },
-    // Quote Estimator State
-    estimator: {
-      fileName: '',
-      weight: 75, // default grams
-      material: 'pla', // 'pla', 'petg', 'abs'
-      isAnalyzing: false,
-      isUploaded: false
     }
   };
 
@@ -26,12 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     'voron': { name: 'Voron 2.4 (Özel Montaj)', rate: 85 }
   };
 
-  const materialRates = {
-    'pla': { name: 'PLA (Standart)', rate: 2.8 },
-    'petg': { name: 'PETG (Fonksiyonel)', rate: 3.8 },
-    'abs': { name: 'ABS/ASA (Endüstriyel)', rate: 4.8 }
-  };
-
   // Dispatched Jobs History Database (Static Showcase)
   const completedJobs = [
     { city: 'İstanbul', job: 'Drone Motor Bağlantı Aparatı', status: 'Ödendi', amount: '480 TL', time: 'Bugün' },
@@ -41,16 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   // --- ELEMENT SELECTORS ---
-  const tabMakerBtn = document.getElementById('tab-maker-btn');
-  const tabCustomerBtn = document.getElementById('tab-customer-btn');
-  const flowMaker = document.getElementById('flow-maker');
-  const flowCustomer = document.getElementById('flow-customer');
-  
-  // Hero Dynamic elements
-  const heroSubheadline = document.getElementById('hero-subheadline');
-  const heroCtaMain = document.getElementById('hero-cta-main');
-  const heroCtaSec = document.getElementById('hero-cta-sec');
-  
   // Calculator elements
   const calcModel = document.getElementById('calc-model');
   const calcHours = document.getElementById('calc-hours');
@@ -62,68 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const simulatorList = document.getElementById('simulator-list');
   const activePrintersCount = document.getElementById('active-printers-count');
   
-  // Estimator elements
-  const dropZone = document.getElementById('drop-zone');
-  const uploadInput = document.getElementById('upload-input');
-  const uploadProgress = document.getElementById('upload-progress');
-  const estimatorControls = document.getElementById('estimator-controls');
-  const fileDetails = document.getElementById('file-details');
-  const fileNameDisplay = document.getElementById('file-name-display');
-  const fileWeightDisplay = document.getElementById('file-weight-display');
-  
-  const weightSlider = document.getElementById('weight-slider');
-  const weightVal = document.getElementById('weight-val');
-  const materialSelect = document.getElementById('material-select');
-  const estCost = document.getElementById('estimator-cost');
-  const estTime = document.getElementById('estimator-time');
-  const resetUpload = document.getElementById('reset-upload');
-
   // FAQ elements
   const faqItems = document.querySelectorAll('.faq-item');
-
-  // --- TAB TOGGLE LOGIC ---
-  function setTab(tabName) {
-    state.activeTab = tabName;
-    if (tabName === 'maker') {
-      // Toggle button active states
-      tabMakerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-md';
-      tabCustomerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 text-slate-500 hover:text-slate-900';
-      
-      // Update Hero Content
-      heroSubheadline.textContent = 'Boşta duran yazıcını topluluk işleri için üretime aç. Cihazını doğrula, e-posta ile iletilen STL dosyalarını basıp ek gelir kazan.';
-      heroCtaMain.textContent = 'Yazıcını Ağa Kaydet';
-      heroCtaMain.href = '#calculator-section';
-      heroCtaSec.textContent = 'Katılım Koşulları';
-      heroCtaSec.href = '#trust-section';
-      
-      // Toggle flow containers
-      flowMaker.classList.remove('hidden-fade');
-      flowMaker.classList.add('active-fade');
-      flowCustomer.classList.remove('active-fade');
-      flowCustomer.classList.add('hidden-fade');
-      
-    } else {
-      // Toggle button active states
-      tabCustomerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-md';
-      tabMakerBtn.className = 'flex-1 sm:flex-initial px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 text-slate-500 hover:text-slate-900';
-      
-      // Update Hero Content
-      heroSubheadline.textContent = 'Prototipler, yedek parçalar veya hobi ürünleri. Tasarımını yükle, sana en yakın yerel üretici basıp adresine göndersin.';
-      heroCtaMain.textContent = 'Hemen Fiyat Teklifi Al';
-      heroCtaMain.href = '#estimator-section';
-      heroCtaSec.textContent = 'Kalite Güvencemiz';
-      heroCtaSec.href = '#quality-section';
-      
-      // Toggle flow containers
-      flowCustomer.classList.remove('hidden-fade');
-      flowCustomer.classList.add('active-fade');
-      flowMaker.classList.remove('active-fade');
-      flowMaker.classList.add('hidden-fade');
-    }
-  }
-
-  tabMakerBtn.addEventListener('click', () => setTab('maker'));
-  tabCustomerBtn.addEventListener('click', () => setTab('customer'));
 
   // --- INCOME CALCULATOR LOGIC ---
   function calculateEarnings() {
@@ -144,30 +58,33 @@ document.addEventListener('DOMContentLoaded', () => {
     animateCounter(weeklySub, parseInt(weeklySub.textContent.replace(/[^0-9]/g, '')) || 0, weeklyEarnings, 400);
   }
 
+  // Counter animation helper
   function animateCounter(element, start, end, duration) {
-    let startTime = null;
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const currentValue = Math.floor(progress * (end - start) + start);
-      element.textContent = new Intl.NumberFormat('tr-TR').format(currentValue) + ' TL';
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      } else {
-        element.textContent = new Intl.NumberFormat('tr-TR').format(end) + ' TL';
-      }
+    if (start === end) {
+      element.textContent = end.toLocaleString('tr-TR') + ' TL';
+      return;
     }
-    window.requestAnimationFrame(step);
+    
+    const range = end - start;
+    let current = start;
+    const increment = end > start ? 1 : -1;
+    const stepTime = Math.max(Math.abs(Math.floor(duration / range)), 1);
+    
+    const timer = setInterval(() => {
+      current += increment * Math.max(1, Math.floor(Math.abs(range) / 30));
+      if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+        clearInterval(timer);
+        element.textContent = end.toLocaleString('tr-TR') + ' TL';
+      } else {
+        element.textContent = Math.round(current).toLocaleString('tr-TR') + ' TL';
+      }
+    }, stepTime);
   }
 
-  calcModel.addEventListener('change', calculateEarnings);
-  calcHours.addEventListener('input', calculateEarnings);
-  
-  // Initialize Calculator on start
-  calculateEarnings();
-
-  // --- MOCK DISPATCH HISTORY RENDERING ---
+  // --- COMPLETED JOBS LIST SIMULATOR ---
   function renderCompletedJobs() {
+    if (!simulatorList) return;
+    
     simulatorList.innerHTML = '';
     completedJobs.forEach((job) => {
       const jobEl = document.createElement('div');
@@ -191,123 +108,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Initialize initial state
+  if (calcModel && calcHours) {
+    calcModel.value = state.calculator.model;
+    calcHours.value = state.calculator.hours;
+    
+    calcModel.addEventListener('change', () => {
+      state.calculator.model = calcModel.value;
+      calculateEarnings();
+    });
+    
+    calcHours.addEventListener('input', () => {
+      state.calculator.hours = calcHours.value;
+      calculateEarnings();
+    });
+    
+    calculateEarnings();
+  }
+
   // Initial render
   renderCompletedJobs();
-
-  // --- INTERACTIVE QUOTE ESTIMATOR LOGIC ---
-  function calculateQuote() {
-    const grams = parseInt(weightSlider.value);
-    const materialKey = materialSelect.value;
-    
-    const materialRate = materialRates[materialKey].rate;
-    const baseFee = 60; // Setup, machine prep, and dispatch fee
-    const rawCost = baseFee + (grams * materialRate);
-    
-    const estimatedCost = Math.round(rawCost);
-    estCost.textContent = estimatedCost + ' TL';
-    
-    // Print time calculation (approx 0.08 hours per gram for high speed, plus 0.5hr base overhead)
-    const hoursTotal = (grams * 0.08) + 0.5;
-    const h = Math.floor(hoursTotal);
-    const m = Math.round((hoursTotal - h) * 60);
-    
-    estTime.textContent = `~ ${h} saat ${m} dakika`;
-    weightVal.textContent = grams;
-  }
-
-  weightSlider.addEventListener('input', calculateQuote);
-  materialSelect.addEventListener('change', calculateQuote);
-
-  // File Upload Handlers (Drag & Drop Mockup)
-  ['dragenter', 'dragover'].forEach(eventName => {
-    dropZone.addEventListener(eventName, (e) => {
-      e.preventDefault();
-      dropZone.classList.add('border-indigo-500', 'bg-indigo-50/20');
-    }, false);
-  });
-
-  ['dragleave', 'drop'].forEach(eventName => {
-    dropZone.addEventListener(eventName, (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('border-indigo-500', 'bg-indigo-50/20');
-    }, false);
-  });
-
-  dropZone.addEventListener('drop', (e) => {
-    const dt = e.dataTransfer;
-    const files = dt.files;
-    if (files.length > 0) {
-      handleMockUpload(files[0]);
-    }
-  });
-
-  dropZone.addEventListener('click', () => {
-    uploadInput.click();
-  });
-
-  uploadInput.addEventListener('change', (e) => {
-    if (e.target.files.length > 0) {
-      handleMockUpload(e.target.files[0]);
-    }
-  });
-
-  function handleMockUpload(file) {
-    const ext = file.name.split('.').pop().toLowerCase();
-    if (ext !== 'stl' && ext !== 'obj' && ext !== '3mf') {
-      alert('Lütfen geçerli bir 3D model dosyası (.stl, .obj, .3mf) yükleyin.');
-      return;
-    }
-
-    state.estimator.fileName = file.name;
-    state.estimator.isAnalyzing = true;
-    state.estimator.isUploaded = false;
-
-    // Show progress ui
-    dropZone.classList.add('hidden');
-    uploadProgress.classList.remove('hidden');
-    
-    const progressBar = document.getElementById('progress-bar');
-    let width = 0;
-    const interval = setInterval(() => {
-      if (width >= 100) {
-        clearInterval(interval);
-        state.estimator.isAnalyzing = false;
-        state.estimator.isUploaded = true;
-        
-        const mockWeight = Math.floor(Math.random() * 150) + 15;
-        weightSlider.value = mockWeight;
-        state.estimator.weight = mockWeight;
-        
-        uploadProgress.classList.add('hidden');
-        estimatorControls.classList.remove('hidden');
-        fileDetails.classList.remove('hidden');
-        
-        fileNameDisplay.textContent = state.estimator.fileName;
-        fileWeightDisplay.textContent = `${mockWeight} gr`;
-        
-        calculateQuote();
-      } else {
-        width += 10;
-        progressBar.style.width = width + '%';
-      }
-    }, 100);
-  }
-
-  resetUpload.addEventListener('click', () => {
-    state.estimator.fileName = '';
-    state.estimator.isUploaded = false;
-    state.estimator.isAnalyzing = false;
-    
-    estimatorControls.classList.add('hidden');
-    fileDetails.classList.add('hidden');
-    uploadProgress.classList.add('hidden');
-    dropZone.classList.remove('hidden');
-    
-    uploadInput.value = '';
-  });
-
-  // Initialize initial estimator cost
-  calculateQuote();
 
   // --- FAQ ACCORDION LOGIC ---
   faqItems.forEach(item => {
@@ -315,20 +135,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = item.querySelector('.accordion-content');
     const arrow = item.querySelector('svg');
 
-    questionBtn.addEventListener('click', () => {
-      const isOpen = content.classList.contains('open');
-      
-      faqItems.forEach(otherItem => {
-        otherItem.querySelector('.accordion-content').classList.remove('open');
-        otherItem.querySelector('.accordion-content').style.maxHeight = null;
-        otherItem.querySelector('svg').classList.remove('rotate-180');
-      });
+    if (questionBtn && content && arrow) {
+      questionBtn.addEventListener('click', () => {
+        const isOpen = content.classList.contains('open');
+        
+        faqItems.forEach(otherItem => {
+          const otherContent = otherItem.querySelector('.accordion-content');
+          const otherArrow = otherItem.querySelector('svg');
+          if (otherContent && otherArrow) {
+            otherContent.classList.remove('open');
+            otherContent.style.maxHeight = null;
+            otherArrow.classList.remove('rotate-180');
+          }
+        });
 
-      if (!isOpen) {
-        content.classList.add('open');
-        content.style.maxHeight = content.scrollHeight + 'px';
-        arrow.classList.add('rotate-180');
-      }
-    });
+        if (!isOpen) {
+          content.classList.add('open');
+          content.style.maxHeight = content.scrollHeight + 'px';
+          arrow.classList.add('rotate-180');
+        }
+      });
+    }
   });
 });
