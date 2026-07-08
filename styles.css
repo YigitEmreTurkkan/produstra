@@ -150,39 +150,35 @@ input[type="range"]::-moz-range-thumb:hover {
 /* World Map Pulse Animations */
 @keyframes pulseBlue {
   0% {
-    r: 3.5px;
+    transform: scale(0.5);
     opacity: 0.85;
   }
-  50% {
-    r: 10px;
-    opacity: 0.35;
-  }
   100% {
-    r: 14px;
+    transform: scale(2.2);
     opacity: 0;
   }
 }
 
 @keyframes pulseIndigo {
   0% {
-    r: 3.5px;
+    transform: scale(0.5);
     opacity: 0.85;
   }
-  50% {
-    r: 10px;
-    opacity: 0.35;
-  }
   100% {
-    r: 14px;
+    transform: scale(2.2);
     opacity: 0;
   }
 }
 
 .pulse-dot-blue {
+  transform-origin: center;
+  transform-box: fill-box;
   animation: pulseBlue 2s infinite ease-out;
 }
 
 .pulse-dot-indigo {
+  transform-origin: center;
+  transform-box: fill-box;
   animation: pulseIndigo 2.2s infinite ease-out;
 }
 
