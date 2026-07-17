@@ -136,35 +136,27 @@
               <div class="relative">
                 <select id="calc-model" class="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-semibold text-slate-800 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 appearance-none transition-colors duration-200">
                   <option value="bambu-p1s">Bambu Lab P1S / P1P</option>
-                  <option value="ender3">Creality Ender 3 (Standart modeller)</option>
+                  <option value="ender3">Creality Ender 3 / Pro / V2</option>
                   <option value="k1">Creality K1 / K1 Max</option>
                   <option value="bambu-x1c">Bambu Lab X1-Carbon</option>
                   <option value="voron">Voron 2.4 / Trident</option>
+                  <option value="elegoo">Elegoo Neptune 3 / 4 (Tüm seriler)</option>
+                  <option value="anycubic">Anycubic Kobra (Tüm seriler)</option>
+                  <option value="prusa">Prusa i3 MK3S+ / MK4</option>
+                  <option value="bambu-a1">Bambu Lab A1 / A1 Mini</option>
+                  <option value="other-fdm">Diğer (Standart FDM Yazıcılar)</option>
+                  <option value="other-sla">Diğer (Reçineli SLA Yazıcılar)</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
                   <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                 </div>
               </div>
             </div>
-
-            <!-- Hours Slider -->
-            <div class="space-y-3">
-              <div class="flex justify-between items-center">
-                <label for="calc-hours" class="text-xs font-bold text-slate-700 uppercase tracking-wider">Günlük Ortalama Baskı Süresi</label>
-                <span class="text-sm font-bold text-indigo-600 font-mono bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200/50"><span id="calc-hours-val">4</span> Saat</span>
-              </div>
-              <input type="range" id="calc-hours" min="2" max="12" step="1" value="4" class="w-full cursor-pointer">
-              <div class="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">
-                <span>2 Saat</span>
-                <span>6 Saat</span>
-                <span>12 Saat</span>
-              </div>
-            </div>
           </div>
         </div>
 
         <div class="mt-8 pt-6 border-t border-slate-200/60">
-          <p class="text-xs text-slate-400 leading-relaxed">*Bu hesaplama, elektrik ve standart aşınma maliyetleri çıkartılmış tahmini net kazançları içerir. Ev ortamında çalışabilecek kolektif üyeleri için gerçekçi %45 doluluk oranı baz alınmıştır.</p>
+          <p class="text-xs text-slate-400 leading-relaxed">*Bu hesaplama, elektrik ve standart aşınma maliyetleri çıkartılmış tahmini net kazançları içerir. Ev ortamında çalışabilecek kolektif üyeleri için hobi ölçekli kullanım hedeflenmiştir.</p>
         </div>
       </div>
 
@@ -203,6 +195,7 @@
           <a href="#trust-section" class="w-full btn-neon block text-center py-4 rounded-xl text-sm font-bold shadow-lg transition-all duration-300">
             Kolektife Katıl ve Cihazını Kaydet
           </a>
+          <span class="text-[8px] text-slate-300/40 opacity-40 leading-none select-none block mt-4 text-center hover:opacity-100 transition-opacity">*Bu sayfada gösterilen tahmini aylık kazançlar, sisteme atanacak uygun iş geldiği takdirde ve cihazın günde 24 saat kesintisiz tam kapasite çalıştırılması durumundaki teorik verimlilik parametrelerine dayanmaktadır. Produstra, hiçbir üyesine sipariş sürekliliği veya kesin iş garantisi sunmamaktadır.</span>
         </div>
       </div>
     </div>
@@ -486,6 +479,21 @@
         <div class="accordion-content">
           <div class="px-6 pb-6 text-xs sm:text-sm text-slate-500 leading-relaxed border-t border-slate-100 pt-4">
             <p>Müşteri teslimatını onayladıktan sonra (baskıda ölçü ve görsel kusur bulunmadığında) hak edişiniz havuzda kesinleşir. Hak edişleriniz, hiçbir komisyon veya ek kesinti uygulanmadan <strong>her hafta Cuma günü</strong> profilinizde tanımlı şahsi IBAN hesabınıza havale edilir.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Item 5 -->
+      <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all duration-300">
+        <button class="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-slate-50 transition-colors duration-200">
+          <span class="font-bold font-display text-slate-800 text-sm sm:text-base pr-4">Baskı esnasında oluşan firelerden (failed prints) Produstra sorumlu mudur?</span>
+          <svg class="h-5 w-5 text-indigo-600 transform transition-transform duration-300 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-6 text-xs sm:text-sm text-slate-500 leading-relaxed border-t border-slate-100 pt-4 text-slate-500">
+            <p>Hayır. Baskı sırasındaki elektrik kesintileri, tabla yapışmaması (warping), nozül tıkanması veya yanlış dilimleme/kalibrasyon ayarları nedeniyle oluşan fire baskılar (başarısız üretimler) tamamen üreticinin kendi sorumluluğundadır. Produstra, başarısız olmuş fire baskılar için hammadde (filament) veya elektrik maliyeti tazmini ödemesi yapmaz. Yalnızca müşteriye sorunsuz teslim edilen başarılı üretimler için tam hak ediş ödenmektedir.</p>
           </div>
         </div>
       </div>
