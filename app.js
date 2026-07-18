@@ -337,6 +337,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function generateAIResponse(userText) {
       const query = userText.toLowerCase();
 
+      // 0. Selamlaşma & Nezaket (Greetings)
+      if (query.includes('selam') || query.includes('merhaba') || query === 'sa' || query.includes('günaydın') || query.includes('iyi günler') || query.includes('hey') || query.includes('nasılsın') || query.includes('merhabalar')) {
+        return `<p>Selam! 👋 <strong>Produstra 3D Üretici Kolektifi</strong>'ne hoş geldiniz!</p>
+          <p>Ben Produstra Yapay Zeka Asistanıyım. Size 2.000 TL akreditasyon, yazıcı modelleri, Cuma günü IBAN ödemeleri veya süreç hakkında nasıl yardımcı olabilirim?</p>`;
+      }
+
       // 1. Akreditasyon / 2.000 TL / Ücret / Aidat
       if (query.includes('2000') || query.includes('2.000') || query.includes('akreditasyon') || query.includes('ücret') || query.includes('aidat') || query.includes('lisans')) {
         return `<p>💰 <strong>2.000 TL Akreditasyon Bedeli Hakkında:</strong></p>
@@ -397,6 +403,28 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>`;
     }
 
+    // Telegram Bot Realtime Notification Dispatcher
+    function forwardToAdminTelegram(userText) {
+      if (!window.visitorSessionId) {
+        window.visitorSessionId = Math.floor(1000 + Math.random() * 9000);
+      }
+      const botToken = window.PRODUSTRA_TG_BOT_TOKEN || '';
+      const chatId = window.PRODUSTRA_TG_CHAT_ID || '';
+      if (!botToken || !chatId) return;
+
+      const payload = {
+        chat_id: chatId,
+        text: `📩 *[Ziyaretçi #${window.visitorSessionId}]*\n💬 *Soru:* ${userText}\n⏰ *Zaman:* ${new Date().toLocaleTimeString('tr-TR')}`,
+        parse_mode: 'Markdown'
+      };
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(err => console.log('TG Dispatch:', err));
+    }
+
     // Process user submission
     function handleUserSubmission(msgText) {
       if (!msgText || !msgText.trim()) return;
@@ -405,6 +433,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Append user msg
       appendUserMessage(text);
       if (chatInput) chatInput.value = '';
+
+      // Forward silently to admin Telegram
+      forwardToAdminTelegram(text);
 
       // Show typing indicator
       showTyping(true);
@@ -435,6 +466,60 @@ document.addEventListener('DOMContentLoaded', () => {
             handleUserSubmission(msg);
           }
         }
+      });
+    }
+
+    // --- CHAT MODAL TAB SWITCHING & DIRECT EMAIL SUPPORT FORM LOGIC ---
+    const tabAiChat = document.getElementById('tab-ai-chat');
+    const tabEmailForm = document.getElementById('tab-email-form');
+    const viewAiChat = document.getElementById('view-ai-chat');
+    const viewEmailForm = document.getElementById('view-email-form');
+    const chipSwitchEmail = document.getElementById('chip-switch-email');
+    const directSuppForm = document.getElementById('direct-support-form');
+    const suppFormSuccess = document.getElementById('supp-form-success');
+
+    function switchToTab(tabName) {
+      if (tabName === 'email') {
+        if (viewAiChat) viewAiChat.classList.add('hidden');
+        if (viewEmailForm) viewEmailForm.classList.remove('hidden');
+        if (tabEmailForm) tabEmailForm.className = 'flex-1 py-1.5 px-2.5 rounded-lg text-[11px] font-bold transition-all bg-indigo-600 text-white flex items-center justify-center space-x-1.5 shadow-sm';
+        if (tabAiChat) tabAiChat.className = 'flex-1 py-1.5 px-2.5 rounded-lg text-[11px] font-semibold transition-all text-slate-400 hover:text-white hover:bg-slate-900 flex items-center justify-center space-x-1.5';
+      } else {
+        if (viewEmailForm) viewEmailForm.classList.add('hidden');
+        if (viewAiChat) viewAiChat.classList.remove('hidden');
+        if (tabAiChat) tabAiChat.className = 'flex-1 py-1.5 px-2.5 rounded-lg text-[11px] font-bold transition-all bg-indigo-600 text-white flex items-center justify-center space-x-1.5 shadow-sm';
+        if (tabEmailForm) tabEmailForm.className = 'flex-1 py-1.5 px-2.5 rounded-lg text-[11px] font-semibold transition-all text-slate-400 hover:text-white hover:bg-slate-900 flex items-center justify-center space-x-1.5';
+        scrollToBottom();
+      }
+    }
+
+    if (tabAiChat && tabEmailForm) {
+      tabAiChat.addEventListener('click', () => switchToTab('ai'));
+      tabEmailForm.addEventListener('click', () => switchToTab('email'));
+    }
+
+    if (chipSwitchEmail) {
+      chipSwitchEmail.addEventListener('click', () => switchToTab('email'));
+    }
+
+    if (directSuppForm) {
+      directSuppForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('supp-name').value;
+        const email = document.getElementById('supp-email').value;
+        const msg = document.getElementById('supp-msg').value;
+
+        // Show confirmation success box
+        if (suppFormSuccess) {
+          suppFormSuccess.classList.remove('hidden');
+        }
+        directSuppForm.reset();
+
+        // Optional mailto fallback trigger
+        const mailtoUri = `mailto:info@produstra.com?subject=${encodeURIComponent('Destek Talebi: ' + name)}&body=${encodeURIComponent('Ad Soyad: ' + name + '\nE-posta: ' + email + '\n\nMesaj:\n' + msg)}`;
+        setTimeout(() => {
+          window.location.href = mailtoUri;
+        }, 1200);
       });
     }
   }
