@@ -364,15 +364,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return `<p>🚀 <strong>Neden Produstra Kolektifine Katılmalısınız?</strong></p>
           <p>• <strong>Yazıcınızı Paraya Çevirin:</strong> Boşta duran cihazınız kenarda tozlanmak yerine ayda 1.500 TL - 4.950 TL arası net ek gelir üretir.</p>
           <p>• <strong>%100 Komisyonsuz:</strong> Ürettiklerinizden komisyon veya aracı ücreti kesilmez. Kazancınızın tamamı Cuma günü IBAN hesabınıza yatırılır.</p>
-          <p>• <strong>Pazarlama ve Müşteri Bulma Derdi Yok:</strong> B2B kurumsal reklam bütçelerimiz sayesinde siparişler doğrudan bölgenizden e-posta ile ayağınıza gelir.</p>`;
+          <p>• <strong>Pazarlama ve Müşteri Bulma Derdi Yok:</strong> B2B kurumsal reklam bütçelerimiz sayesinde siparişler doğrudan bölgenizden e-posta ile ayağınıza gelir.</p>
+          <div class="pt-2">
+            <a href="https://www.shopier.com/produstra/49087280" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-all shadow-md inline-flex items-center space-x-1.5">
+              <span>🛒 Shopier Güvencesiyle Katıl (2.000 TL)</span>
+            </a>
+          </div>`;
       }
 
-      // 4. Akreditasyon / 2.000 TL Ücret
-      if (query.includes('2000') || query.includes('2.000') || query.includes('akreditasyon') || query.includes('ücret') || query.includes('aidat') || query.includes('lisans') || query.includes('iade')) {
-        return `<p>💰 <strong>2.000 TL Akreditasyon Bedeli Hakkında:</strong></p>
+      // 4. Akreditasyon / 2.000 TL Ücret / Shopier Ödeme
+      if (query.includes('2000') || query.includes('2.000') || query.includes('akreditasyon') || query.includes('ücret') || query.includes('aidat') || query.includes('lisans') || query.includes('iade') || query.includes('shopier')) {
+        return `<p>💰 <strong>2.000 TL Akreditasyon & Shopier Ödemesi:</strong></p>
           <p>• <strong>Ömür Boyu Tek Seferlik:</strong> Aylık, yıllık aidat veya sipariş başına komisyon kesintisi KESİNLİKLE YOKTUR.</p>
-          <p>• <strong>Kalite Tescili & Pazarlama:</strong> Bu bedel; cihazınızın kumpas kalibrasyonunun manuel tescillenmesi ve bölgenizdeki kurumsal firmalara reklam verilerek size sürekli iş aktarılması için harcanır.</p>
-          <p>• Ürettiğiniz ilk 1-2 işte bu bedeli kolaylıkla çıkarır, kalan sürede ömür boyu net kâr elde edersiniz.</p>`;
+          <p>• <strong>Shopier Güvencesi:</strong> Ödemenizi 256-bit SSL korumalı Shopier altyapımız üzerinden kredi/banka kartınızla 3D Secure güvencesinde gerçekleştirebilirsiniz.</p>
+          <div class="pt-2">
+            <a href="https://www.shopier.com/produstra/49087280" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-all shadow-md inline-flex items-center space-x-1.5">
+              <span>🛒 Shopier Güvencesiyle Öde (2.000 TL)</span>
+            </a>
+          </div>`;
       }
 
       // 5. Ödeme Koşulları & Cuma IBAN
@@ -410,12 +419,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Fallback Response
-      return `<p>🤖 Anladım! Bu konuda size en doğru bilgiyi vermek için sizi doğrudan iletişim formumuza yönlendiriyorum.</p>
-        <p>Aşağıdaki butona basarak adınız, telefonunuz ve mesajınızla destek talebi oluşturabilirsiniz:</p>
-        <div class="pt-2">
-          <button onclick="document.getElementById('tab-email-form').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center space-x-2">
+      return `<p>🤖 Anladım! Bu konuda size en doğru bilgiyi vermek için sizi doğrudan iletişim formumuza ve Shopier ödeme sayfamıza yönlendiriyorum.</p>
+        <div class="pt-2 flex flex-col space-y-1.5">
+          <a href="https://www.shopier.com/produstra/49087280" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow-md inline-flex items-center justify-center space-x-1.5">
+            <span>🛒 Shopier Güvencesiyle Öde (2.000 TL)</span>
+          </a>
+          <button onclick="document.getElementById('tab-email-form').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow-md inline-flex items-center justify-center space-x-2">
             <span>✉️ E-posta & Destek Formunu Aç</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </button>
         </div>`;
     }
@@ -518,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- MAKER REGISTRATION & SHOPIER PAYMENT MODAL LOGIC ---
-  window.PRODUSTRA_SHOPIER_URL = window.PRODUSTRA_SHOPIER_URL || 'https://www.shopier.com/'; // Configurable Shopier 2.000 TL Link
+  window.PRODUSTRA_SHOPIER_URL = 'https://www.shopier.com/produstra/49087280'; // Official Shopier 2.000 TL Link
 
   const regModal = document.getElementById('registration-modal');
   const closeRegModalBtn = document.getElementById('close-reg-modal');
@@ -549,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const city = document.getElementById('reg-city').value;
       const model = document.getElementById('reg-model').value;
 
-      // Redirect to Shopier URL for 3D Secure 2.000 TL Payment
+      // Redirect to Official Shopier 2.000 TL Payment Page
       window.open(window.PRODUSTRA_SHOPIER_URL, '_blank');
       if (regModal) regModal.classList.add('hidden');
     });
