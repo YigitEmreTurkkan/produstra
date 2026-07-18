@@ -248,4 +248,194 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // --- AI CHATBOT & TELEGRAM HANDOFF LOGIC ---
+  const openChatBtn = document.getElementById('open-chat-btn');
+  const closeChatBtn = document.getElementById('close-chat-btn');
+  const chatWindow = document.getElementById('chat-window');
+  const chatMessages = document.getElementById('chat-messages');
+  const chatForm = document.getElementById('chat-form');
+  const chatInput = document.getElementById('chat-input');
+  const typingIndicator = document.getElementById('typing-indicator');
+
+  if (openChatBtn && closeChatBtn && chatWindow) {
+    // Open chat window
+    openChatBtn.addEventListener('click', () => {
+      chatWindow.classList.remove('hidden');
+      setTimeout(() => {
+        chatWindow.classList.remove('scale-95', 'opacity-0');
+        chatWindow.classList.add('scale-100', 'opacity-100');
+      }, 10);
+      // Remove badge counter
+      const badge = openChatBtn.querySelector('span');
+      if (badge) badge.style.display = 'none';
+      scrollToBottom();
+    });
+
+    // Close chat window
+    closeChatBtn.addEventListener('click', () => {
+      chatWindow.classList.remove('scale-100', 'opacity-100');
+      chatWindow.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        chatWindow.classList.add('hidden');
+      }, 300);
+    });
+
+    // Scroll to bottom helper
+    function scrollToBottom() {
+      if (chatMessages) {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+
+    // Append User Message Bubble
+    function appendUserMessage(text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex items-start justify-end space-x-2';
+      msgDiv.innerHTML = `
+        <div class="bg-indigo-600 text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] text-xs leading-relaxed">
+          <p>${escapeHTML(text)}</p>
+        </div>
+      `;
+      chatMessages.appendChild(msgDiv);
+      scrollToBottom();
+    }
+
+    // Append AI Message Bubble
+    function appendAIMessage(htmlContent) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex items-start space-x-2';
+      msgDiv.innerHTML = `
+        <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">AI</div>
+        <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] space-y-2 text-slate-700 text-xs leading-relaxed">
+          ${htmlContent}
+        </div>
+      `;
+      chatMessages.appendChild(msgDiv);
+      scrollToBottom();
+    }
+
+    // Helper to escape HTML for user inputs
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    // Show / Hide Typing Indicator
+    function showTyping(show) {
+      if (!typingIndicator) return;
+      if (show) {
+        typingIndicator.classList.remove('hidden');
+      } else {
+        typingIndicator.classList.add('hidden');
+      }
+      scrollToBottom();
+    }
+
+    // AI Intent Engine Responses
+    function generateAIResponse(userText) {
+      const query = userText.toLowerCase();
+
+      // 1. Akreditasyon / 2.000 TL / Ücret / Aidat
+      if (query.includes('2000') || query.includes('2.000') || query.includes('akreditasyon') || query.includes('ücret') || query.includes('aidat') || query.includes('lisans')) {
+        return `<p>💰 <strong>2.000 TL Akreditasyon Bedeli Hakkında:</strong></p>
+          <p>Bu ödeme platformun <strong>tek seferlik lisans ve akreditasyon bedelidir</strong>. Aylık, yıllık aidat veya komisyon kesintisi kesinlikle bulunmaz.</p>
+          <p>Ödemeniz; cihazınızın tolerans testlerinin yapılması, sunucu altyapısı ve kurumsal B2B reklam kampanyalarının finansmanında kullanılır. Ödeme tek seferliktir ve iadesi yoktur.</p>`;
+      }
+
+      // 2. Ödeme / Cuma / IBAN / Para
+      if (query.includes('ödeme') || query.includes('cuma') || query.includes('iban') || query.includes('para') || query.includes('hak ediş')) {
+        return `<p>💳 <strong>Ödeme Koşulları ve Takvimi:</strong></p>
+          <p>Müşteri teslimatını onayladıktan sonra (baskıda ölçü ve görsel kusur bulunmadığında) hak edişiniz havuzda kesinleşir.</p>
+          <p>Hak edişleriniz, hiçbir kesinti veya komisyon uygulanmadan <strong>her hafta Cuma günü</strong> profilinizde tanımlı IBAN hesabınıza yatırılır.</p>`;
+      }
+
+      // 3. Fire Baskı / Hatalı / Tıkanma / Elektrik
+      if (query.includes('fire') || query.includes('hatalı') || query.includes('tıkanma') || query.includes('elektrik') || query.includes('hasar') || query.includes('warping')) {
+        return `<p>⚠️ <strong>Fire ve Hatalı Baskı Kuralları:</strong></p>
+          <p>Elektrik kesintileri, tabla yapışmaması (warping), nozül tıkanması veya kalibrasyon sorunları nedeniyle oluşan fire baskılar <strong>tamamen üreticinin sorumluluğundadır</strong>.</p>
+          <p>Produstra fire baskılar için malzeme/elektrik maliyeti tazmini ödemez. Yalnızca müşteriye sorunsuz teslim edilen başarılı üretimler ödenir.</p>`;
+      }
+
+      // 4. Yazıcı / Model / Ender / Bambu / Voron / Elegoo / Anycubic / Prusa / SLA
+      if (query.includes('yazıcı') || query.includes('model') || query.includes('ender') || query.includes('bambu') || query.includes('voron') || query.includes('elegoo') || query.includes('anycubic') || query.includes('prusa') || query.includes('sla') || query.includes('fdm')) {
+        return `<p>🖨️ <strong>Uyumlu 3D Yazıcı Modelleri:</strong></p>
+          <p>Produstra kolektifine Ender 3, Bambu Lab (P1S, X1C, A1), Creality K1, Voron, Prusa, Elegoo, Anycubic ve diğer tüm FDM/SLA (Reçineli) yazıcı sahipleri katılabilir.</p>
+          <p>Kayıt sonrası panelden kalibrasyon test modelini basıp kumpas ölçülerinizi iletmeniz yeterlidir.</p>`;
+      }
+
+      // 5. Sipariş / İş Dağıtımı / Nasıl
+      if (query.includes('sipariş') || query.includes('iş') || query.includes('dağıtım') || query.includes('nasıl')) {
+        return `<p>📦 <strong>Sipariş Dağıtım Süreci:</strong></p>
+          <p>Siparişler otomatik değil, mesafeniz ve kumpas kalibrasyon onayınız esas alınarak koordinasyon ekibimiz tarafından <strong>e-posta veya Telegram</strong> üzerinden iletilir.</p>
+          <p>Bölgenizden sipariş geldiğinde STL dosyası ve renk detayları sizinle paylaşılır. Onaylarsanız basıp kargolarsınız.</p>`;
+      }
+
+      // 6. Canlı Temsilci / İnsan / Yetkili / Telegram / İletişim / Yönetici / Numarası
+      if (query.includes('canlı') || query.includes('temsilci') || query.includes('insan') || query.includes('yetkili') || query.includes('telegram') || query.includes('iletişim') || query.includes('yönetici') || query.includes('numara') || query.includes('telefon') || query.includes('bağlan')) {
+        return `<p>🚀 <strong>Canlı Temsilciye Bağlanıyorsunuz!</strong></p>
+          <p>Kolektif yöneticilerimizin şahsi telefon numaralarının korunması amacıyla tüm birebir iletişim <strong>Telegram ve Resmi E-Posta</strong> üzerinden yürütülmektedir.</p>
+          <div class="pt-1 space-y-1.5">
+            <a href="https://t.me/produstra_destek" target="_blank" class="flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-3 py-2 rounded-xl transition-colors text-center justify-center shadow-sm text-xs">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+              <span>Telegram: @produstra_destek</span>
+            </a>
+            <p class="text-[10px] text-slate-400 text-center">✉️ E-posta: <a href="mailto:info@produstra.com" class="text-indigo-600 underline">info@produstra.com</a></p>
+          </div>`;
+      }
+
+      // Fallback Response
+      return `<p>🤖 Anladım! Bu konuda size en doğru bilgiyi vermek için sizi doğrudan <strong>Canlı Temsilcimize</strong> yönlendirebilirim.</p>
+        <p>Şahsi numara paylaşımı gerekmeden 7/24 Telegram ve e-posta üzerinden ekibimizle iletişime geçebilirsiniz:</p>
+        <div class="pt-1 space-y-1.5">
+          <a href="https://t.me/produstra_destek" target="_blank" class="flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-3 py-2 rounded-xl transition-colors text-center justify-center shadow-sm text-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+            <span>Telegram: @produstra_destek</span>
+          </a>
+          <p class="text-[10px] text-slate-400 text-center">✉️ E-posta: <a href="mailto:info@produstra.com" class="text-indigo-600 underline">info@produstra.com</a></p>
+        </div>`;
+    }
+
+    // Process user submission
+    function handleUserSubmission(msgText) {
+      if (!msgText || !msgText.trim()) return;
+      const text = msgText.trim();
+
+      // Append user msg
+      appendUserMessage(text);
+      if (chatInput) chatInput.value = '';
+
+      // Show typing indicator
+      showTyping(true);
+
+      // Simulate typing delay (500-700ms)
+      setTimeout(() => {
+        showTyping(false);
+        const replyHTML = generateAIResponse(text);
+        appendAIMessage(replyHTML);
+      }, 600);
+    }
+
+    // Form submit listener
+    if (chatForm && chatInput) {
+      chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleUserSubmission(chatInput.value);
+      });
+    }
+
+    // Quick chips click listener using event delegation
+    if (chatMessages) {
+      chatMessages.addEventListener('click', (e) => {
+        const chip = e.target.closest('.quick-chip');
+        if (chip) {
+          const msg = chip.getAttribute('data-msg');
+          if (msg) {
+            handleUserSubmission(msg);
+          }
+        }
+      });
+    }
+  }
 });
