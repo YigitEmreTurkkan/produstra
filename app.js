@@ -534,14 +534,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeRegModalBtn = document.getElementById('close-reg-modal');
   const makerRegForm = document.getElementById('maker-registration-form');
 
-  // Open Registration Modal when CTA buttons are clicked
-  document.querySelectorAll('a[href="#trust-section"], a[href="#calculator-section"]').forEach(btn => {
+  // Open Registration Modal when top-right or any CTA buttons are clicked
+  document.querySelectorAll('.btn-open-reg-modal, a[href="#registration-modal"], a[href="#trust-section"], a[href="#calculator-section"]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       if (regModal) {
         e.preventDefault();
         regModal.classList.remove('hidden');
       }
     });
+  });
+
+  // Global event delegation for any "Kolektife Katıl" button
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('a, button');
+    if (target && target.innerText && target.innerText.toLowerCase().includes('kolektife katıl')) {
+      if (regModal && !target.closest('#registration-modal')) {
+        e.preventDefault();
+        regModal.classList.remove('hidden');
+      }
+    }
   });
 
   if (closeRegModalBtn && regModal) {
