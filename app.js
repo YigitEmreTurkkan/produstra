@@ -570,9 +570,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const city = document.getElementById('reg-city').value;
       const model = document.getElementById('reg-model').value;
 
-      // Redirect to Official Shopier 2.000 TL Payment Page
+      // 1. Save lead details locally
+      const regData = { name, phone, email, city, model, timestamp: new Date().toISOString() };
+      try {
+        localStorage.setItem('produstra_last_lead', JSON.stringify(regData));
+      } catch (err) {}
+
+      // 2. Trigger mailto notification backup to info@produstra.com
+      const subject = `🔔 YENİ MAKER ÜYE KAYDI: ${name} (${phone})`;
+      const body = `Ad Soyad: ${name}\nTelefon: ${phone}\nE-posta: ${email}\nŞehir: ${city}\nYazıcı Modeli: ${model}\n\nKayıt Tarihi: ${new Date().toLocaleString('tr-TR')}\n\n*Bu üretici 2.000 TL Shopier ödeme sayfasına yönlendirildi.*`;
+      const mailtoUri = `mailto:info@produstra.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // 3. Open Official Shopier Payment Page
       window.open(window.PRODUSTRA_SHOPIER_URL, '_blank');
+
+      // 4. Dispatch background mailto notification
+      setTimeout(() => {
+        window.location.href = mailtoUri;
+      }, 500);
+
       if (regModal) regModal.classList.add('hidden');
+      makerRegForm.reset();
     });
   }
 });
