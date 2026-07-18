@@ -374,55 +374,20 @@ document.addEventListener('DOMContentLoaded', () => {
       // 5. Sipariş / İş Dağıtımı / Nasıl
       if (query.includes('sipariş') || query.includes('iş') || query.includes('dağıtım') || query.includes('nasıl')) {
         return `<p>📦 <strong>Sipariş Dağıtım Süreci:</strong></p>
-          <p>Siparişler otomatik değil, mesafeniz ve kumpas kalibrasyon onayınız esas alınarak koordinasyon ekibimiz tarafından <strong>e-posta veya Telegram</strong> üzerinden iletilir.</p>
+          <p>Siparişler otomatik değil, mesafeniz ve kumpas kalibrasyon onayınız esas alınarak koordinasyon ekibimiz tarafından <strong>e-posta veya iletişim numaranız</strong> üzerinden iletilir.</p>
           <p>Bölgenizden sipariş geldiğinde STL dosyası ve renk detayları sizinle paylaşılır. Onaylarsanız basıp kargolarsınız.</p>`;
       }
 
-      // 6. Canlı Temsilci / İnsan / Yetkili / Telegram / İletişim / Yönetici / Numarası
-      if (query.includes('canlı') || query.includes('temsilci') || query.includes('insan') || query.includes('yetkili') || query.includes('telegram') || query.includes('iletişim') || query.includes('yönetici') || query.includes('numara') || query.includes('telefon') || query.includes('bağlan')) {
-        return `<p>🚀 <strong>Canlı Temsilciye Bağlanıyorsunuz!</strong></p>
-          <p>Kolektif yöneticilerimizin şahsi telefon numaralarının korunması amacıyla tüm birebir iletişim <strong>Telegram ve Resmi E-Posta</strong> üzerinden yürütülmektedir.</p>
-          <div class="pt-1 space-y-1.5">
-            <a href="https://t.me/produstra_destek" target="_blank" class="flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-3 py-2 rounded-xl transition-colors text-center justify-center shadow-sm text-xs">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
-              <span>Telegram: @produstra_destek</span>
-            </a>
-            <p class="text-[10px] text-slate-400 text-center">✉️ E-posta: <a href="mailto:info@produstra.com" class="text-indigo-600 underline">info@produstra.com</a></p>
-          </div>`;
+      // 6. Canlı Temsilci / İnsan / Yetkili / İletişim / Yönetici / Numarası
+      if (query.includes('canlı') || query.includes('temsilci') || query.includes('insan') || query.includes('yetkili') || query.includes('iletişim') || query.includes('yönetici') || query.includes('numara') || query.includes('telefon') || query.includes('bağlan') || query.includes('mail')) {
+        return `<p>✉️ <strong>Destek Ekibimize Ulaşın:</strong></p>
+          <p>Sohbet penceresindeki <strong>'E-posta İle Ulaşın'</strong> sekmesinden adınızı, e-postanızı ve telefon numaranızı bırakarak ekibimize mesaj iletebilirsiniz.</p>
+          <p>Ekibimiz <strong>info@produstra.com</strong> adresinden e-posta veya telefonunuza 24 saat içinde dönüş yapacaktır.</p>`;
       }
 
       // Fallback Response
-      return `<p>🤖 Anladım! Bu konuda size en doğru bilgiyi vermek için sizi doğrudan <strong>Canlı Temsilcimize</strong> yönlendirebilirim.</p>
-        <p>Şahsi numara paylaşımı gerekmeden 7/24 Telegram ve e-posta üzerinden ekibimizle iletişime geçebilirsiniz:</p>
-        <div class="pt-1 space-y-1.5">
-          <a href="https://t.me/produstra_destek" target="_blank" class="flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-3 py-2 rounded-xl transition-colors text-center justify-center shadow-sm text-xs">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
-            <span>Telegram: @produstra_destek</span>
-          </a>
-          <p class="text-[10px] text-slate-400 text-center">✉️ E-posta: <a href="mailto:info@produstra.com" class="text-indigo-600 underline">info@produstra.com</a></p>
-        </div>`;
-    }
-
-    // Telegram Bot Realtime Notification Dispatcher
-    function forwardToAdminTelegram(userText) {
-      if (!window.visitorSessionId) {
-        window.visitorSessionId = Math.floor(1000 + Math.random() * 9000);
-      }
-      const botToken = window.PRODUSTRA_TG_BOT_TOKEN || '';
-      const chatId = window.PRODUSTRA_TG_CHAT_ID || '';
-      if (!botToken || !chatId) return;
-
-      const payload = {
-        chat_id: chatId,
-        text: `📩 *[Ziyaretçi #${window.visitorSessionId}]*\n💬 *Soru:* ${userText}\n⏰ *Zaman:* ${new Date().toLocaleTimeString('tr-TR')}`,
-        parse_mode: 'Markdown'
-      };
-
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).catch(err => console.log('TG Dispatch:', err));
+      return `<p>🤖 Anladım! Bu konuda size en doğru bilgiyi vermek için sizi doğrudan iletişim formumuza yönlendirebilirim.</p>
+        <p>Sohbet penceresindeki <strong>'E-posta İle Ulaşın'</strong> sekmesinden adınız, e-postanız, telefon numaranız ve mesajınızla destek talebi oluşturabilirsiniz.</p>`;
     }
 
     // Process user submission
@@ -433,9 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Append user msg
       appendUserMessage(text);
       if (chatInput) chatInput.value = '';
-
-      // Forward silently to admin Telegram
-      forwardToAdminTelegram(text);
 
       // Show typing indicator
       showTyping(true);
@@ -507,6 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const name = document.getElementById('supp-name').value;
         const email = document.getElementById('supp-email').value;
+        const phone = document.getElementById('supp-phone') ? document.getElementById('supp-phone').value : '';
         const msg = document.getElementById('supp-msg').value;
 
         // Show confirmation success box
@@ -515,8 +478,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         directSuppForm.reset();
 
-        // Optional mailto fallback trigger
-        const mailtoUri = `mailto:info@produstra.com?subject=${encodeURIComponent('Destek Talebi: ' + name)}&body=${encodeURIComponent('Ad Soyad: ' + name + '\nE-posta: ' + email + '\n\nMesaj:\n' + msg)}`;
+        // Formatted mailto fallback trigger with phone number
+        const mailtoUri = `mailto:info@produstra.com?subject=${encodeURIComponent('Destek Talebi: ' + name)}&body=${encodeURIComponent('Ad Soyad: ' + name + '\nE-posta: ' + email + '\nTelefon: ' + phone + '\n\nMesaj:\n' + msg)}`;
         setTimeout(() => {
           window.location.href = mailtoUri;
         }, 1200);
