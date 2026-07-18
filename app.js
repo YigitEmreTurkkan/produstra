@@ -516,4 +516,42 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+
+  // --- MAKER REGISTRATION & SHOPIER PAYMENT MODAL LOGIC ---
+  window.PRODUSTRA_SHOPIER_URL = window.PRODUSTRA_SHOPIER_URL || 'https://www.shopier.com/'; // Configurable Shopier 2.000 TL Link
+
+  const regModal = document.getElementById('registration-modal');
+  const closeRegModalBtn = document.getElementById('close-reg-modal');
+  const makerRegForm = document.getElementById('maker-registration-form');
+
+  // Open Registration Modal when CTA buttons are clicked
+  document.querySelectorAll('a[href="#trust-section"], a[href="#calculator-section"]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      if (regModal) {
+        e.preventDefault();
+        regModal.classList.remove('hidden');
+      }
+    });
+  });
+
+  if (closeRegModalBtn && regModal) {
+    closeRegModalBtn.addEventListener('click', () => {
+      regModal.classList.add('hidden');
+    });
+  }
+
+  if (makerRegForm) {
+    makerRegForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value;
+      const phone = document.getElementById('reg-phone').value;
+      const email = document.getElementById('reg-email').value;
+      const city = document.getElementById('reg-city').value;
+      const model = document.getElementById('reg-model').value;
+
+      // Redirect to Shopier URL for 3D Secure 2.000 TL Payment
+      window.open(window.PRODUSTRA_SHOPIER_URL, '_blank');
+      if (regModal) regModal.classList.add('hidden');
+    });
+  }
 });
