@@ -381,13 +381,22 @@ document.addEventListener('DOMContentLoaded', () => {
       // 6. Canlı Temsilci / İnsan / Yetkili / İletişim / Yönetici / Numarası
       if (query.includes('canlı') || query.includes('temsilci') || query.includes('insan') || query.includes('yetkili') || query.includes('iletişim') || query.includes('yönetici') || query.includes('numara') || query.includes('telefon') || query.includes('bağlan') || query.includes('mail')) {
         return `<p>✉️ <strong>Destek Ekibimize Ulaşın:</strong></p>
-          <p>Sohbet penceresindeki <strong>'E-posta İle Ulaşın'</strong> sekmesinden adınızı, e-postanızı ve telefon numaranızı bırakarak ekibimize mesaj iletebilirsiniz.</p>
-          <p>Ekibimiz <strong>info@produstra.com</strong> adresinden e-posta veya telefonunuza 24 saat içinde dönüş yapacaktır.</p>`;
+          <p>Adınızı, e-posta adresinizi ve telefon numaranızı bırakarak ekibimize mesaj iletebilirsiniz.</p>
+          <div class="pt-1.5">
+            <button onclick="document.getElementById('tab-email-form').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors shadow-sm inline-flex items-center space-x-1.5">
+              <span>✉️ E-posta & Destek Formunu Aç</span>
+            </button>
+          </div>`;
       }
 
       // Fallback Response
-      return `<p>🤖 Anladım! Bu konuda size en doğru bilgiyi vermek için sizi doğrudan iletişim formumuza yönlendirebilirim.</p>
-        <p>Sohbet penceresindeki <strong>'E-posta İle Ulaşın'</strong> sekmesinden adınız, e-postanız, telefon numaranız ve mesajınızla destek talebi oluşturabilirsiniz.</p>`;
+      return `<p>🤖 Anladım! Bu konuda size en doğru bilgiyi vermek için sizi doğrudan iletişim formumuza yönlendiriyorum.</p>
+        <p>Aşağıdaki butona basarak adınız, telefonunuz ve mesajınızla destek talebi oluşturabilirsiniz:</p>
+        <div class="pt-1.5">
+          <button onclick="document.getElementById('tab-email-form').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors shadow-sm inline-flex items-center space-x-1.5">
+            <span>✉️ E-posta & Destek Formunu Aç</span>
+          </button>
+        </div>`;
     }
 
     // Process user submission
