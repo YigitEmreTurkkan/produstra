@@ -333,58 +333,78 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollToBottom();
     }
 
-    // AI Intent Engine Responses
+    // AI Intent Engine Responses (Smart, Persuasive & Detailed)
     function generateAIResponse(userText) {
       const query = userText.toLowerCase();
 
       // 0. Selamlaşma & Nezaket (Greetings)
       if (query.includes('selam') || query.includes('merhaba') || query === 'sa' || query.includes('günaydın') || query.includes('iyi günler') || query.includes('hey') || query.includes('nasılsın') || query.includes('merhabalar')) {
         return `<p>Selam! 👋 <strong>Produstra 3D Üretici Kolektifi</strong>'ne hoş geldiniz!</p>
-          <p>Ben Produstra Yapay Zeka Asistanıyım. Size 2.000 TL akreditasyon, yazıcı modelleri, Cuma günü IBAN ödemeleri veya süreç hakkında nasıl yardımcı olabilirim?</p>`;
+          <p>Ben Produstra Yapay Zeka Asistanıyım. Yazıcınızı üretime açma, 2.000 TL akreditasyon, hammadde (filament) tedariği, Cuma ödemeleri veya süreç hakkında merak ettiğiniz tüm soruları yanıtlamaya hazırım!</p>`;
       }
 
-      // 1. Akreditasyon / 2.000 TL / Ücret / Aidat
-      if (query.includes('2000') || query.includes('2.000') || query.includes('akreditasyon') || query.includes('ücret') || query.includes('aidat') || query.includes('lisans')) {
+      // 1. Filament & Hammadde Süreci
+      if (query.includes('filament') || query.includes('hammadde') || query.includes('malzeme') || query.includes('gram') || query.includes('pla') || query.includes('petg') || query.includes('abs')) {
+        return `<p>🧵 <strong>Filament ve Malzeme Süreci Hakkında:</strong></p>
+          <p>• <strong>Maliyet Hak Edişinize Eklenir:</strong> Müşterinin talep ettiği malzeme (PLA, PETG, ABS vb.) ve gramaj sipariş detaylarında size iletilir. Harcanan her gram hammadde bedeli + makine saat ücreti ödemenize eksiksiz eklenir.</p>
+          <p>• <strong>Kendi Stoklarınızı Kullanın:</strong> Elinizdeki standart kaliteli filamentleri kullanabileceğiniz gibi, dilerseniz topluluğumuzun indirimli hammadde tedarikçilerinden de faydalanabilirsiniz.</p>
+          <p>• Karmaşık dilimleme ile uğraşmazsınız; basıma hazır STL ve renk kodları doğrudan size ulaştırılır.</p>`;
+      }
+
+      // 2. Fire Baskı & Risk Yönetimi
+      if (query.includes('fire') || query.includes('hatalı') || query.includes('tıkanma') || query.includes('elektrik') || query.includes('hasar') || query.includes('warping') || query.includes('zarar') || query.includes('risk')) {
+        return `<p>⚠️ <strong>Fire Baskı ve Risk Analizi:</strong></p>
+          <p>• <strong>%1'in Altında Fire Oranı:</strong> Katılım aşamasında kumpas doğrulaması yapıldığı için kalibrasyon hataları ve basım kaza riskleri sıfırlanır.</p>
+          <p>• <strong>Yüksek Kâr Marjı:</strong> Başarılı teslim edilen tek bir iş dahi hammadde maliyetinizin çok üzerinde kazanç sağladığı için olası küçük mekanik hatalar aylık kârlılığınızı asla etkilemez.</p>
+          <p>• Elektrik kesintisi veya tabla kalkması gibi mekanik sorunlar üretici sorumluluğundadır; ancak tescilli kalibrasyon sayesinde bu durumlar sıfıra yakın yaşanır.</p>`;
+      }
+
+      // 3. Neden Katılmalıyım? / Avantajlar & İkna
+      if (query.includes('neden') || query.includes('avantaj') || query.includes('kazanç') || query.includes('mantıklı') || query.includes('kâr') || query.includes('guven') || query.includes('dolandırıcı') || query.includes('nedir')) {
+        return `<p>🚀 <strong>Neden Produstra Kolektifine Katılmalısınız?</strong></p>
+          <p>• <strong>Yazıcınızı Paraya Çevirin:</strong> Boşta duran cihazınız kenarda tozlanmak yerine ayda 1.500 TL - 4.950 TL arası net ek gelir üretir.</p>
+          <p>• <strong>%100 Komisyonsuz:</strong> Ürettiklerinizden komisyon veya aracı ücreti kesilmez. Kazancınızın tamamı Cuma günü IBAN hesabınıza yatırılır.</p>
+          <p>• <strong>Pazarlama ve Müşteri Bulma Derdi Yok:</strong> B2B kurumsal reklam bütçelerimiz sayesinde siparişler doğrudan bölgenizden e-posta ile ayağınıza gelir.</p>`;
+      }
+
+      // 4. Akreditasyon / 2.000 TL Ücret
+      if (query.includes('2000') || query.includes('2.000') || query.includes('akreditasyon') || query.includes('ücret') || query.includes('aidat') || query.includes('lisans') || query.includes('iade')) {
         return `<p>💰 <strong>2.000 TL Akreditasyon Bedeli Hakkında:</strong></p>
-          <p>Bu ödeme platformun <strong>tek seferlik lisans ve akreditasyon bedelidir</strong>. Aylık, yıllık aidat veya komisyon kesintisi kesinlikle bulunmaz.</p>
-          <p>Ödemeniz; cihazınızın tolerans testlerinin yapılması, sunucu altyapısı ve kurumsal B2B reklam kampanyalarının finansmanında kullanılır. Ödeme tek seferliktir ve iadesi yoktur.</p>`;
+          <p>• <strong>Ömür Boyu Tek Seferlik:</strong> Aylık, yıllık aidat veya sipariş başına komisyon kesintisi KESİNLİKLE YOKTUR.</p>
+          <p>• <strong>Kalite Tescili & Pazarlama:</strong> Bu bedel; cihazınızın kumpas kalibrasyonunun manuel tescillenmesi ve bölgenizdeki kurumsal firmalara reklam verilerek size sürekli iş aktarılması için harcanır.</p>
+          <p>• Ürettiğiniz ilk 1-2 işte bu bedeli kolaylıkla çıkarır, kalan sürede ömür boyu net kâr elde edersiniz.</p>`;
       }
 
-      // 2. Ödeme / Cuma / IBAN / Para
+      // 5. Ödeme Koşulları & Cuma IBAN
       if (query.includes('ödeme') || query.includes('cuma') || query.includes('iban') || query.includes('para') || query.includes('hak ediş')) {
-        return `<p>💳 <strong>Ödeme Koşulları ve Takvimi:</strong></p>
-          <p>Müşteri teslimatını onayladıktan sonra (baskıda ölçü ve görsel kusur bulunmadığında) hak edişiniz havuzda kesinleşir.</p>
-          <p>Hak edişleriniz, hiçbir kesinti veya komisyon uygulanmadan <strong>her hafta Cuma günü</strong> profilinizde tanımlı IBAN hesabınıza yatırılır.</p>`;
+        return `<p>💳 <strong>Kesintisiz Cuma Ödeme Güvencesi:</strong></p>
+          <p>• Müşteri teslimatını onayladığı anda (ölçü ve görsel kusur olmadığında) hak edişiniz anında havuzda kesinleşir.</p>
+          <p>• Hiçbir aracı komisyonu kesilmeden her hafta <strong>Cuma günü</strong> şahsi IBAN hesabınıza havale yapılır.</p>`;
       }
 
-      // 3. Fire Baskı / Hatalı / Tıkanma / Elektrik
-      if (query.includes('fire') || query.includes('hatalı') || query.includes('tıkanma') || query.includes('elektrik') || query.includes('hasar') || query.includes('warping')) {
-        return `<p>⚠️ <strong>Fire ve Hatalı Baskı Kuralları:</strong></p>
-          <p>Elektrik kesintileri, tabla yapışmaması (warping), nozül tıkanması veya kalibrasyon sorunları nedeniyle oluşan fire baskılar <strong>tamamen üreticinin sorumluluğundadır</strong>.</p>
-          <p>Produstra fire baskılar için malzeme/elektrik maliyeti tazmini ödemez. Yalnızca müşteriye sorunsuz teslim edilen başarılı üretimler ödenir.</p>`;
-      }
-
-      // 4. Yazıcı / Model / Ender / Bambu / Voron / Elegoo / Anycubic / Prusa / SLA
+      // 6. Yazıcı Modelleri (FDM / SLA)
       if (query.includes('yazıcı') || query.includes('model') || query.includes('ender') || query.includes('bambu') || query.includes('voron') || query.includes('elegoo') || query.includes('anycubic') || query.includes('prusa') || query.includes('sla') || query.includes('fdm')) {
-        return `<p>🖨️ <strong>Uyumlu 3D Yazıcı Modelleri:</strong></p>
-          <p>Produstra kolektifine Ender 3, Bambu Lab (P1S, X1C, A1), Creality K1, Voron, Prusa, Elegoo, Anycubic ve diğer tüm FDM/SLA (Reçineli) yazıcı sahipleri katılabilir.</p>
-          <p>Kayıt sonrası panelden kalibrasyon test modelini basıp kumpas ölçülerinizi iletmeniz yeterlidir.</p>`;
+        return `<p>🖨️ <strong>Uyumlu 3D Yazıcı Modellerimiz:</strong></p>
+          <p>• <strong>FDM Yazıcılar:</strong> Ender 3 serisi, Bambu Lab (P1S, X1C, A1), Creality K1, Voron, Prusa, Elegoo Neptune, Anycubic vb.</p>
+          <p>• <strong>SLA (Reçineli) Yazıcılar:</strong> Hassas prototip ve medikal parçalar için tüm reçineli cihazlar desteklenir.</p>
+          <p>Cihazınızın kalibrasyonunu test mastarı basarak doğrulamanız yeterlidir.</p>`;
       }
 
-      // 5. Sipariş / İş Dağıtımı / Nasıl
+      // 7. Sipariş & İş Dağıtımı
       if (query.includes('sipariş') || query.includes('iş') || query.includes('dağıtım') || query.includes('nasıl')) {
         return `<p>📦 <strong>Sipariş Dağıtım Süreci:</strong></p>
           <p>Siparişler otomatik değil, mesafeniz ve kumpas kalibrasyon onayınız esas alınarak koordinasyon ekibimiz tarafından <strong>e-posta veya iletişim numaranız</strong> üzerinden iletilir.</p>
           <p>Bölgenizden sipariş geldiğinde STL dosyası ve renk detayları sizinle paylaşılır. Onaylarsanız basıp kargolarsınız.</p>`;
       }
 
-      // 6. Canlı Temsilci / İnsan / Yetkili / İletişim / Yönetici / Numarası
-      if (query.includes('canlı') || query.includes('temsilci') || query.includes('insan') || query.includes('yetkili') || query.includes('iletişim') || query.includes('yönetici') || query.includes('numara') || query.includes('telefon') || query.includes('bağlan') || query.includes('mail')) {
+      // 8. Canlı Temsilci / İnsan / İletişim / Destek
+      if (query.includes('canlı') || query.includes('temsilci') || query.includes('insan') || query.includes('yetkili') || query.includes('iletişim') || query.includes('yönetici') || query.includes('numara') || query.includes('telefon') || query.includes('bağlan') || query.includes('mail') || query.includes('destek')) {
         return `<p>✉️ <strong>Destek Ekibimize Ulaşın:</strong></p>
           <p>Adınızı, e-posta adresinizi ve telefon numaranızı bırakarak ekibimize mesaj iletebilirsiniz.</p>
-          <div class="pt-1.5">
-            <button onclick="document.getElementById('tab-email-form').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors shadow-sm inline-flex items-center space-x-1.5">
+          <div class="pt-2">
+            <button onclick="document.getElementById('tab-email-form').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center space-x-2">
               <span>✉️ E-posta & Destek Formunu Aç</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
           </div>`;
       }
@@ -392,9 +412,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // Fallback Response
       return `<p>🤖 Anladım! Bu konuda size en doğru bilgiyi vermek için sizi doğrudan iletişim formumuza yönlendiriyorum.</p>
         <p>Aşağıdaki butona basarak adınız, telefonunuz ve mesajınızla destek talebi oluşturabilirsiniz:</p>
-        <div class="pt-1.5">
-          <button onclick="document.getElementById('tab-email-form').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors shadow-sm inline-flex items-center space-x-1.5">
+        <div class="pt-2">
+          <button onclick="document.getElementById('tab-email-form').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center space-x-2">
             <span>✉️ E-posta & Destek Formunu Aç</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </button>
         </div>`;
     }
